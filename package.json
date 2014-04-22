@@ -4,7 +4,7 @@
   "description": "LinkedIn API wrapper for AngularJS",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aromka/ngLinkedIn.git"
+    "url": "https://github.com/boketto/ngLinkedIn.git"
   },
   "main": "ngLinkedIn.js",
   "keywords": [
@@ -17,7 +17,7 @@
   "author": "Roman Alexeev <roman@boket.to>",
   "license": "MIT License",
   "bugs": {
-    "url": "https://github.com/aromka/ngLinkedIn/issues"
+    "url": "https://github.com/boketto/ngLinkedIn/issues"
   },
-  "homepage": "https://github.com/aromka/ngLinkedIn"
+  "homepage": "https://github.com/boketto/ngLinkedIn"
 }
