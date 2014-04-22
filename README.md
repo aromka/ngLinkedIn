@@ -7,6 +7,9 @@ See official [LinkedIn API](https://developer.linkedin.com/documents/javascript-
 
 ## Usage ##
 
+Install via bower:
+> bower install ngLinkedIn --save
+
 Include ngLinkedIn module:
 
 ```
