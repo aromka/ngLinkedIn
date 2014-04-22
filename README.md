@@ -51,7 +51,7 @@ You can also chain the config setting during setup like this:
 
 ```
 $linkedInProvider
-    .set('appKey', '77fqv2gnm90k3e')
+    .set('appKey', '123456789')
     .set('scope', 'r_basicprofile r_network')
     .set('authorize', true);
 ```
