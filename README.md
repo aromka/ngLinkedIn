@@ -17,7 +17,7 @@ Set app key through config provider:
 
 ```
 .config(function($linkedInProvider) {
-   $linkedInProvider.set('appKey', '77fqv2gnm90k3e');
+   $linkedInProvider.set('appKey', '123456789');
 });
 ```
 
