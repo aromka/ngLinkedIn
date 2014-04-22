@@ -3,6 +3,11 @@
  *
  * For more info see official API Documentation:
  * https://developer.linkedin.com/documents/javascript-api-reference-0
+ *
+ * @author  Roman Alexeev <roman@boket.to>
+ * @date    April 21, 2014
+ * @version 0.1.0
+ * @license MIT
  */
 'use strict';
 
@@ -127,7 +132,7 @@ angular.module('ngLinkedIn', [])
             };
 
             // connections
-            // requires 'r_network' and 'rw_nus' permission
+            // requires 'r_network' and 'rw_nus' permissions
             $linkedIn.connections = function(ids, fields, params) {
                 return $linkedIn.api('Connections', ids, fields, params);
             };
