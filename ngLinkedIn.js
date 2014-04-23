@@ -23,7 +23,7 @@ angular.module('ngLinkedIn', [])
 
         this.set = function(property, value) {
             if (!config.hasOwnProperty(property)) {
-                throw 'Config does not support property: ' + key;
+                throw 'Config does not support property: ' + property;
             }
             config[property] = value;
             return this;
@@ -31,7 +31,7 @@ angular.module('ngLinkedIn', [])
 
         this.get = function(property) {
             if (!config.hasOwnProperty(property)) {
-                throw 'Config does not support property: ' + key;
+                throw 'Config does not support property: ' + property;
             }
             return config[property];
         };
