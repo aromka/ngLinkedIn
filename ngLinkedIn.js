@@ -15,7 +15,6 @@ angular.module('ngLinkedIn', [])
     .provider('$linkedIn', function() {
         var config = {
             appKey: null,
-            onLoad: null,
             authorize: false,
             lang: 'en_US',
             scope: 'r_basicprofile'
@@ -46,7 +45,7 @@ angular.module('ngLinkedIn', [])
                 angular.forEach(events, function(event) {
                     IN.Event.on(IN, event, function(response) {
                         $rootScope.$broadcast("in." + event, response);
-                        if(!$rootScope.$$phase) {
+                        if (!$rootScope.$$phase) {
                             $rootScope.$apply();
                         }
                     });
@@ -57,25 +56,31 @@ angular.module('ngLinkedIn', [])
                 return config[property];
             };
 
-
             // init
             $linkedIn.init = function() {
                 if (!$linkedIn.config('appKey')) {
                     throw '$linkedInProvider: appKey is not set';
                 }
-                $window.IN.init(angular.extend({ api_key: $linkedIn.config('appKey') }, config));
-                $rootScope.$broadcast("in.load", $window.IN);
+
+                $window.inAsyncLoad = function() {
+                    $rootScope.$broadcast("in.load", $window.IN);
+                };
+                $window.IN.init(angular.extend({
+                    api_key: $linkedIn.config('appKey'),
+                    onLoad: 'inAsyncLoad'
+                }, config));
             };
 
             // check auth
             $linkedIn.isAuthorized = function() {
-                return IN.User.isAuthorized();
+                return $linkedIn.promise.then(function(IN) {
+                    return IN.User.isAuthorized();
+                });
             };
 
             // authorize
             $linkedIn.authorize = function() {
                 var defer = $q.defer();
-
                 return $linkedIn.promise.then(function(IN) {
                     IN.User.authorize(function() {
                         defer.resolve();
@@ -118,7 +123,6 @@ angular.module('ngLinkedIn', [])
                         .fields(fields || null)
                         .params(params || {})
                         .result(function(response) {
-                            console.log('res', response);
                             defer.resolve(response);
                         });
                     return defer.promise;

@@ -41,7 +41,6 @@ The following options are supported through config:
 Property      | Type          | Default
 ------------- | ------------- | -------------
 appKey        | String        | null
-onLoad        | String        | null
 authorize     | Boolean       | false
 lang          | String        | 'en_US'
 appKey        | String        | 'r_basicprofile'
