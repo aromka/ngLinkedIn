@@ -1,6 +1,6 @@
 {
   "name": "ngLinkedIn",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "LinkedIn API wrapper for AngularJS",
   "repository": {
     "type": "git",
