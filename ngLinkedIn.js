@@ -65,6 +65,7 @@ angular.module('ngLinkedIn', [])
                 $window.inAsyncLoad = function() {
                     $rootScope.$broadcast("in.load", $window.IN);
                 };
+                $window.IN.ENV.js.suppressWarnings = true;
                 $window.IN.init(angular.extend({
                     api_key: $linkedIn.config('appKey'),
                     onLoad: 'inAsyncLoad'
