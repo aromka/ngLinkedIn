@@ -151,10 +151,12 @@ angular.module('ngLinkedIn', [])
         }];
     })
     .run(['$rootScope', '$linkedIn', function($rootScope, $linkedIn) {
-        $.getScript("//platform.linkedin.com/in.js?async=true", function() {
-            $linkedIn.init();
-            if (!$rootScope.$$phase) {
-                $rootScope.$apply();
-            }
-        });
+        if (!window.IN) {
+            $.getScript("//platform.linkedin.com/in.js?async=true", function () {
+                $linkedIn.init();
+                if (!$rootScope.$$phase) {
+                    $rootScope.$apply();
+                }
+            });
+        }
     }]);
