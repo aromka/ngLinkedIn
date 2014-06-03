@@ -43,7 +43,7 @@ Property      | Type          | Default
 appKey        | String        | null
 authorize     | Boolean       | false
 lang          | String        | 'en_US'
-appKey        | String        | 'r_basicprofile'
+scope         | String        | 'r_basicprofile'
 
 
 You can also chain the config setting during setup like this:
@@ -54,6 +54,12 @@ $linkedInProvider
     .set('scope', 'r_basicprofile r_network')
     .set('authorize', true);
 ```
+
+## Common issues ##
+```
+Uncaught Error: You must specify a valid JavaScript API Domain as part of this key's configuration.
+```
+You need to set API Domains in your app. It is located in ```JavaScript API Domains:``` in the ```Other``` section in your app.
 
 ## Available API methods ##
 
