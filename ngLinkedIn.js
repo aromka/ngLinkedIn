@@ -153,11 +153,16 @@ angular.module('ngLinkedIn', [])
     })
     .run(['$rootScope', '$linkedIn', function($rootScope, $linkedIn) {
         if (!window.IN) {
-            $.getScript("//platform.linkedin.com/in.js?async=true", function () {
+             var js_script = document.createElement('script');
+              js_script.type = "text/javascript";
+              js_script.src = "//platform.linkedin.com/in.js?async=true";
+              js_script.async = true;
+              js_script.onload = function(  ){
                 $linkedIn.init();
                 if (!$rootScope.$$phase) {
-                    $rootScope.$apply();
+                  $rootScope.$apply();
                 }
-            });
+              };
+              document.getElementsByTagName('head')[0].appendChild(js_script);
         }
     }]);
