@@ -17,7 +17,8 @@ angular.module('ngLinkedIn', [])
             appKey: null,
             authorize: false,
             lang: 'en_US',
-            scope: 'r_basicprofile'
+            scope: 'r_basicprofile',
+            credentials_cookie: false
         };
 
         this.set = function(property, value) {
