@@ -5,13 +5,14 @@
  * https://developer.linkedin.com/documents/javascript-api-reference-0
  *
  * @author  Roman Alexeev <roman@boket.to>
+ * @author Bruno Sato <bruno.sato@live.com>
  * @date    April 21, 2014
  * @version 0.1.2
  * @license MIT
  */
 'use strict';
 
-angular.module('ngLinkedIn', [])
+angular.module('linkedin.api', [])
     .provider('$linkedIn', function() {
         var config = {
             appKey: null,
@@ -66,7 +67,6 @@ angular.module('ngLinkedIn', [])
                 $window.inAsyncLoad = function() {
                     $rootScope.$broadcast("in.load", $window.IN);
                 };
-                $window.IN.ENV.js.suppressWarnings = true;
                 $window.IN.init(angular.extend({
                     api_key: $linkedIn.config('appKey'),
                     onLoad: 'inAsyncLoad'
@@ -133,14 +133,33 @@ angular.module('ngLinkedIn', [])
 
             // api shortcut methods
             // profile
-            $linkedIn.profile = function(ids, fields, params) {
-                return $linkedIn.api('Profile', ids, fields, params);
+            $linkedIn.profile = function() {
+              var defer = $q.defer();
+
+              return $linkedIn.promise.then( function( IN ){
+                IN.API.Raw("/people/~").result( function( profile ){
+                  defer.resolve(profile);
+                });
+
+                return defer.promise;
+              });
+
             };
 
             // connections
             // requires 'r_network' and 'rw_nus' permissions
-            $linkedIn.connections = function(ids, fields, params) {
-                return $linkedIn.api('Connections', ids, fields, params);
+            $linkedIn.connections = function() {
+
+              var defer = $q.defer();
+
+              return $linkedIn.promise.then( function( IN ){
+                IN.API.Raw("/people/~/connections?modified=new&format=json").result( function( profile ){
+                  defer.resolve(profile);
+                });
+
+                return defer.promise;
+              });
+
             };
 
             // member updates
@@ -154,11 +173,18 @@ angular.module('ngLinkedIn', [])
     })
     .run(['$rootScope', '$linkedIn', function($rootScope, $linkedIn) {
         if (!window.IN) {
-            $.getScript("//platform.linkedin.com/in.js?async=true", function () {
-                $linkedIn.init();
-                if (!$rootScope.$$phase) {
-                    $rootScope.$apply();
-                }
-            });
+
+          var js_script = document.createElement('script');
+          js_script.type = "text/javascript";
+          js_script.src = "//platform.linkedin.com/in.js?async=true";
+          js_script.async = true;
+          js_script.onload = function(  ){
+            $linkedIn.init();
+            if (!$rootScope.$$phase) {
+              $rootScope.$apply() ;
+            }
+          };
+          document.getElementsByTagName('head')[0].appendChild(js_script);
+
         }
     }]);
