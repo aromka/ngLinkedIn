@@ -154,11 +154,22 @@ angular.module('ngLinkedIn', [])
     })
     .run(['$rootScope', '$linkedIn', function($rootScope, $linkedIn) {
         if (!window.IN) {
-            $.getScript("//platform.linkedin.com/in.js?async=true", function () {
-                $linkedIn.init();
-                if (!$rootScope.$$phase) {
-                    $rootScope.$apply();
-                }
-            });
+            // If jQuery doesn't exist - script is loaded with regular JS.
+            try {
+				$.getScript("//platform.linkedin.com/in.js?async=true", function () {
+					$linkedIn.init();
+					if (!$rootScope.$$phase) {
+						$rootScope.$apply();
+					}
+				});
+			}
+			catch (e) {
+				(function(d, t) {
+					var g = d.createElement(t), // create a script tag
+						s = d.getElementsByTagName(t)[0]; // find the first script tag in the document
+					g.src = '//platform.linkedin.com/in.js?async=true'; // set the source of the script to your script
+					s.parentNode.insertBefore(g, s); // append the script to the DOM
+				}(document, 'script'));
+			}
         }
     }]);
